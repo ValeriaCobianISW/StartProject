@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a37a913-0e62-4775-8854-4c17199977de">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="17"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     socio.`nombre` AS socio_nombre,
+     prestamo.`cantidad` AS prestamo_cantidad,
+     prestamo.`interes` AS prestamo_interes,
+     prestamo.`plazo` AS prestamo_plazo,
+     prestamo.`descuento` AS prestamo_descuento,
+     prestamo.`resto` AS prestamo_resto,
+     prestamo.`fecha` AS prestamo_fecha,
+     prestamo.`estado` AS prestamo_estado,
+     prestamo.`total` AS prestamo_total
+FROM
+     `socio` socio INNER JOIN `prestamo` prestamo ON socio.`id` = prestamo.`idSocio`
+
+where prestamo.idSocio=$P{id}]]>
+	</queryString>
+	<field name="socio_nombre" class="java.lang.String"/>
+	<field name="prestamo_cantidad" class="java.lang.Double"/>
+	<field name="prestamo_interes" class="java.lang.Double"/>
+	<field name="prestamo_plazo" class="java.lang.Integer"/>
+	<field name="prestamo_descuento" class="java.lang.Double"/>
+	<field name="prestamo_resto" class="java.lang.Double"/>
+	<field name="prestamo_fecha" class="java.lang.String"/>
+	<field name="prestamo_estado" class="java.lang.Integer"/>
+	<field name="prestamo_total" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="198" y="0" width="422" height="62" uuid="ac75ff47-f652-4d79-b29f-8e3e6bc7fe10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Transporte de pasaje y carga del valle de Guaymas y Empalme TPCVGE S DE RL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="303" y="62" width="196" height="22" forecolor="#000000" uuid="1c974cc3-9a5f-4abd-b204-b44270313244"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Socio ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="366" y="69" width="89" height="15" uuid="4be90151-b87c-4d92-a9af-5da49543ab04"/>
+				<textFieldExpression><![CDATA[$F{socio_nombre}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="16" y="10" width="167" height="112" uuid="90d73a50-96f9-4716-91a2-bc6dd578b351"/>
+				<imageExpression><![CDATA["logoTransporte.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="3ceed373-2bce-4709-b207-15d936bab40c"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="44" y="0" width="89" height="15" forecolor="#000000" uuid="6293362f-cc5f-4cd8-b4a4-1bdd067c54a5"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="133" y="0" width="89" height="15" forecolor="#000000" uuid="7787c37f-652a-40a0-b53c-4a69173cf9a2"/>
+				<text><![CDATA[Interes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="222" y="0" width="89" height="15" forecolor="#000000" uuid="e4bf4707-9b30-400f-8004-7cfc84c5096f"/>
+				<text><![CDATA[Plazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="311" y="0" width="89" height="15" forecolor="#000000" uuid="ae4df57e-9cb4-4297-8c75-dc764853a5e1"/>
+				<text><![CDATA[Total ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="400" y="0" width="89" height="15" forecolor="#000000" uuid="09570b56-aa51-4bf1-8e8a-27dca6d51663"/>
+				<text><![CDATA[Descuento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="489" y="0" width="89" height="15" forecolor="#000000" uuid="7f339e25-fe70-40d8-b280-8730a019c5b6"/>
+				<text><![CDATA[Resto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="578" y="1" width="89" height="15" forecolor="#000000" uuid="81760471-6b93-420a-8065-30ef5149f72c"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="667" y="0" width="89" height="15" forecolor="#000000" uuid="ef61e2d6-c349-4a9a-8793-a308b8f2c4f2"/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Transparent" x="0" y="0" width="802" height="15" forecolor="#FFFFFF" uuid="3290f672-b80a-49c5-b589-06ab062119d5"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="44" y="0" width="89" height="15" uuid="b42e9f78-692b-4dc1-81ac-03aa6b6de705"/>
+					<textFieldExpression><![CDATA[$F{prestamo_cantidad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="133" y="0" width="89" height="15" uuid="aa603195-5048-4dc5-954e-7e6f70df5d79"/>
+					<textFieldExpression><![CDATA[$F{prestamo_interes}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="222" y="0" width="89" height="15" uuid="4dd264ea-3e31-448f-bb3c-a41cafea6c70"/>
+					<textFieldExpression><![CDATA[$F{prestamo_plazo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="311" y="0" width="89" height="15" uuid="a89b4adc-83f0-445c-ab90-9d42858b3083"/>
+					<textFieldExpression><![CDATA[$F{prestamo_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="400" y="0" width="89" height="15" uuid="dd6bbfbe-8a43-4d15-babf-e86df829bb18"/>
+					<textFieldExpression><![CDATA[$F{prestamo_descuento}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="489" y="0" width="89" height="15" uuid="c7d35379-945c-4b79-a2ee-3c6124a41da1"/>
+					<textFieldExpression><![CDATA[$F{prestamo_resto}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="578" y="0" width="89" height="15" uuid="bff3c648-4a34-47ae-a74c-abebf6594ef3"/>
+					<textFieldExpression><![CDATA[$F{prestamo_fecha}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="667" y="0" width="89" height="15" uuid="a463854e-0fe5-4a7a-af98-8c6ec733a31a"/>
+					<textFieldExpression><![CDATA[($F{prestamo_estado}==1 ? "Actual" : "Pasado")]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="d49a0971-4eff-4740-b625-856c4365416a"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#0099FF" backcolor="#0099FF" uuid="f660d349-c6d8-480b-adcc-9a585d8ce888"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#FFFFFF" uuid="f52ca3bd-a2ef-4956-86c9-cc3864e4b104"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#FFFFFF" uuid="9b80ab6a-b47c-4d30-a889-9601febcd096"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="5833ffce-2257-4927-ada3-ee45b5490bc3"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

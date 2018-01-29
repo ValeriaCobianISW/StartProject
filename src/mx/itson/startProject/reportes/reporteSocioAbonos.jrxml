@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="17d4c06b-ac44-41e1-8cb4-831c29c42420">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="10"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     socio.`nombre` AS socio_nombre,
+     prestamoperiodo.`abono` AS prestamoperiodo_abono,
+     prestamoperiodo.`resto` AS prestamoperiodo_resto,
+     prestamo.`cantidad` AS prestamo_cantidad,
+     prestamo.`interes` AS prestamo_interes,
+     prestamo.`plazo` AS prestamo_plazo,
+     prestamo.`fecha` AS prestamo_fecha,
+     prestamo.`estado` AS prestamo_estado,
+     prestamo.`total` AS prestamo_total,
+     periodo.`fechaInicio` AS periodo_fechaInicio,
+     periodo.`fechaFin` AS periodo_fechaFin
+FROM
+     `socio` socio INNER JOIN `prestamo` prestamo ON socio.`id` = prestamo.`idSocio`
+     INNER JOIN `prestamoperiodo` prestamoperiodo ON prestamo.`id` = prestamoperiodo.`idPrestamo`
+     INNER JOIN `periodo` periodo ON prestamoperiodo.`idPeriodo` = periodo.`id`
+
+where periodo.id=$P{id}]]>
+	</queryString>
+	<field name="socio_nombre" class="java.lang.String"/>
+	<field name="prestamoperiodo_abono" class="java.lang.Double"/>
+	<field name="prestamoperiodo_resto" class="java.lang.Double"/>
+	<field name="prestamo_cantidad" class="java.lang.Double"/>
+	<field name="prestamo_interes" class="java.lang.Double"/>
+	<field name="prestamo_plazo" class="java.lang.Integer"/>
+	<field name="prestamo_fecha" class="java.lang.String"/>
+	<field name="prestamo_estado" class="java.lang.Integer"/>
+	<field name="prestamo_total" class="java.lang.Double"/>
+	<field name="periodo_fechaInicio" class="java.lang.String"/>
+	<field name="periodo_fechaFin" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="158" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="216" y="0" width="404" height="62" uuid="29e66b3c-ea3d-4150-ad7d-62e5cddd4e89"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Transporte de pasaje y carga del valle de Guaymas y Empalme TPCVGE S DE RL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="365" y="62" width="196" height="22" forecolor="#000000" uuid="e1a01142-9306-4259-9a93-d65ff09789e3"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Socio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="11" y="129" width="115" height="15" forecolor="#000000" uuid="da56f779-206b-455d-8ce3-79b9ab3b6d64"/>
+				<text><![CDATA[Cantidad prestada:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="126" y="129" width="114" height="15" uuid="bbf4cf61-adeb-4074-9459-42c6e8bf323a"/>
+				<textFieldExpression><![CDATA[$F{prestamo_cantidad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="256" y="129" width="83" height="15" forecolor="#000000" uuid="32cef51d-7a41-4d90-8808-aba171003c93"/>
+				<text><![CDATA[Total a pagar:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="340" y="129" width="116" height="15" uuid="5053d29e-9f89-41c7-a002-2ed12262523b"/>
+				<textFieldExpression><![CDATA[$F{prestamo_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="620" y="84" width="50" height="15" forecolor="#000000" uuid="140d45af-7075-488d-9d7c-870492f747c9"/>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="670" y="84" width="92" height="15" uuid="a922f302-c7ac-4ab6-aca9-8feff18a2468"/>
+				<textFieldExpression><![CDATA[($F{prestamo_estado}==1 ? "Actual" : "Pasado")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="422" y="70" width="72" height="15" uuid="9fbaa46e-5a51-4147-b6de-b49daf851e32"/>
+				<textFieldExpression><![CDATA[$F{socio_nombre}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="1" y="0" width="155" height="99" uuid="7e5446b1-9819-4123-9f62-24b9c29892a9"/>
+				<imageExpression><![CDATA["logoTransporte.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="52b7552e-69cb-4e97-a0cb-3a291f6d2230"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="58" y="0" width="98" height="15" forecolor="#000000" uuid="f0763b8c-79c4-4d15-8c0b-1ddf05620e3d"/>
+				<text><![CDATA[Fecha Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="156" y="0" width="84" height="15" forecolor="#000000" uuid="bfb396c8-8d30-4a1a-a706-72837fa53190"/>
+				<text><![CDATA[Fecha Fin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="245" y="0" width="83" height="15" forecolor="#000000" uuid="ae620798-f1c4-4e2c-ad6f-269c71aa9edc"/>
+				<text><![CDATA[Abono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="328" y="0" width="85" height="15" forecolor="#000000" uuid="54db2b19-4780-4a51-ae70-036b0aef92e0"/>
+				<text><![CDATA[Resto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="413" y="0" width="77" height="15" forecolor="#000000" uuid="b40b2b45-fd22-470f-bde2-cb0ec9edd791"/>
+				<text><![CDATA[Plazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="489" y="0" width="72" height="15" forecolor="#000000" uuid="21857e0b-002c-4c36-88a9-21c2aa0cbbd0"/>
+				<text><![CDATA[Interes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="561" y="0" width="154" height="15" forecolor="#000000" uuid="6d05b337-e851-406b-8383-f99bd390f995"/>
+				<text><![CDATA[Fecha del Prestamo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" forecolor="#99CCFF" backcolor="#FFFFFF" uuid="3519aa5e-2005-4420-9480-e0b67f877dd4"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="58" y="0" width="98" height="15" uuid="ab1c7e99-74ef-44e4-a0c3-7d2d22c66030"/>
+					<textFieldExpression><![CDATA[$F{periodo_fechaInicio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="156" y="0" width="84" height="15" uuid="f9bae8bf-8a43-43d2-9f8d-92b08481e235"/>
+					<textFieldExpression><![CDATA[$F{periodo_fechaFin}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="245" y="0" width="83" height="15" uuid="1db93347-9262-4d81-b3e3-7c0ba9dba646"/>
+					<textFieldExpression><![CDATA[$F{prestamoperiodo_abono}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="328" y="0" width="85" height="15" uuid="cd5441c1-fb44-4b88-9777-13c5c5a0a690"/>
+					<textFieldExpression><![CDATA[$F{prestamoperiodo_resto}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="413" y="0" width="77" height="15" uuid="54e6054c-1912-46ac-b0e5-e0c57aeaca71"/>
+					<textFieldExpression><![CDATA[$F{prestamo_plazo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="489" y="0" width="72" height="15" uuid="0386ecb1-af37-4a97-8013-d4ea70fde89f"/>
+					<textFieldExpression><![CDATA[$F{prestamo_interes}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="561" y="0" width="154" height="15" uuid="d4c30913-365b-4e5e-9068-1ae5c1b40077"/>
+					<textFieldExpression><![CDATA[$F{prestamo_fecha}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="4a19c042-429c-4bc1-82e1-e001178c59f0"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#FFFFFF" backcolor="#0099FF" uuid="8d453f4e-4767-4404-86fa-2fa509e25fc1"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" mode="Transparent" x="783" y="1" width="40" height="20" forecolor="#FFFFFF" backcolor="#0099FF" uuid="3c741ed4-0ed6-4526-ae0c-1c553b9675d6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" mode="Transparent" x="703" y="1" width="80" height="20" forecolor="#FFFFFF" backcolor="#0099FF" uuid="9cf98ffe-1030-40c2-b639-143e638a80e3"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" mode="Transparent" x="22" y="2" width="197" height="20" forecolor="#FFFFFF" backcolor="#0099FF" uuid="7a97b023-4a10-4ab2-8b72-f431c465ffa7"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

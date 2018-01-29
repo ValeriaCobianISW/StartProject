@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.MySQLDialect
+        </property>
+        <property name="hibernate.connection.driver_class">
+            com.mysql.jdbc.Driver
+        </property> 
+        <property name="hibernate.connection.url">
+            jdbc:mysql://188.121.44.183:3306/starproject
+        </property>
+        <property name="hibernate.connection.username">
+            administrador
+        </property>
+        <property name="hibernate.connection.password">
+            administrador28
+        </property>
+        <mapping class="mx.itson.startProject.entidades.Periodo"/>
+        <mapping class="mx.itson.startProject.entidades.Prestamo"/>
+        <mapping class="mx.itson.startProject.entidades.Ruta"/>
+        <mapping class="mx.itson.startProject.entidades.Socio"/>
+        <mapping class="mx.itson.startProject.entidades.Usuario"/>
+        <mapping class="mx.itson.startProject.entidades.SocioPeriodo"/>
+        <mapping class="mx.itson.startProject.entidades.PrestamoPeriodo"/>
+    </session-factory>
+</hibernate-configuration>
